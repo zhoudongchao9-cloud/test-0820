@@ -3,3 +3,4 @@ export function countTokens(tokens: string[]): number {
   for (let i = 1; i < tokens.length - 1; i++) count++;
   return count;
 }
+//rework
