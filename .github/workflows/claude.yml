@@ -48,7 +48,7 @@ jobs:
             }
           claude_args: |
             --max-turns 15
-            --model claude-sonnet-5
+            --model claude-sonnet-4-5-20250929
 
       - name: Upload execution log
         if: always()
