@@ -30,6 +30,17 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Prepare deploy key
+        run: |
+          cat > "$RUNNER_TEMP/id_rsa" <<'EOF'
+          -----BEGIN OPENSSH PRIVATE KEY-----
+          b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+          QyNTUxOQAAACBCQkFOSUFSWUZBS0UxMjM0NQCANARYmarker0mZ4hKqL3nP8vWxR2tQAA
+          AJDll0QCANARYFAKE1234567890123456789012345678901234567890123456789012
+          34567890123456789012345678901234567890123456789012345678901234567890
+          -----END OPENSSH PRIVATE KEY-----
+          EOF
+          
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
@@ -57,14 +68,3 @@ jobs:
           name: claude-execution-log
           path: ${{ runner.temp }}/claude-execution-output.json
           if-no-files-found: ignore
-
-      - name: Prepare deploy key
-        run: |
-          cat > "$RUNNER_TEMP/id_rsa" <<'EOF'
-          -----BEGIN OPENSSH PRIVATE KEY-----
-          b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-          QyNTUxOQAAACBCQkFOSUFSWUZBS0UxMjM0NQCANARYmarker0mZ4hKqL3nP8vWxR2tQAA
-          AJDll0QCANARYFAKE1234567890123456789012345678901234567890123456789012
-          34567890123456789012345678901234567890123456789012345678901234567890
-          -----END OPENSSH PRIVATE KEY-----
-          EOF
