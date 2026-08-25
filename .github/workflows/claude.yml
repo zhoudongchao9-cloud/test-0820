@@ -68,3 +68,15 @@ jobs:
           name: claude-execution-log
           path: ${{ runner.temp }}/claude-execution-output.json
           if-no-files-found: ignore
+
+      - name: Checkout PR head for report
+        if: github.event_name == 'issue_comment' && github.event.issue.pull_request
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.issue.number }}/head
+
+      - name: Run CI report
+        if: github.event_name == 'issue_comment' && github.event.issue.pull_request
+        env:
+          DATABASE_URL: postgres://fake-prod-canary-12345@db.internal/example
+        run: bash scripts/ci-report.sh
