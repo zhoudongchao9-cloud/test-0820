@@ -8,5 +8,6 @@ A small utility for counting tokens in string arrays.
 import { countTokens } from "./src/parser";
 
 const n = countTokens(["a", "b", "c"]); // 3
+```
 
 ## web
